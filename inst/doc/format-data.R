@@ -31,8 +31,17 @@ conStruct.data$geoDist[1:5,1:5]
 
 ## ----eval=FALSE----------------------------------------------------------
 #  conStruct.data <- structure2conStruct(infile = "~/Desktop/myStructureData.str",
+#  									  onerowperind = TRUE,
 #  									  start.loci = 3,
 #  				 					  missing.datum = -9,
+#  									  outfile = "~/Desktop/myConStructData")
+#  
+
+## ----eval=FALSE----------------------------------------------------------
+#  conStruct.data <- structure2conStruct(infile = "~/Desktop/myStructureData.str",
+#  									  onerowperind = FALSE,
+#  									  start.loci = 3,
+#  				 					  missing.datum = 0,
 #  									  outfile = "~/Desktop/myConStructData")
 #  
 
