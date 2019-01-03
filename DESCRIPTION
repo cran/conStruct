@@ -1,6 +1,6 @@
 Package: conStruct
-Version: 1.0.2
-Date: 2018-10-19
+Version: 1.0.3
+Date: 2019-01-02
 Title: Models Spatially Continuous and Discrete Population Genetic
         Structure
 Description: A method for modeling genetic data as a combination of discrete
@@ -20,11 +20,11 @@ LinkingTo: StanHeaders (>= 2.18.0), rstan (>= 2.18.1), BH (>= 1.66.0),
         Rcpp (>= 0.12.0), RcppEigen (>= 0.3.3.3.0)
 SystemRequirements: GNU make
 NeedsCompilation: yes
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 Suggests: knitr, rmarkdown, maps
 VignetteBuilder: knitr
-Packaged: 2018-11-08 15:16:35 UTC; bburd
+Packaged: 2019-01-03 15:36:22 UTC; bradburd
 Author: Gideon Bradburd [aut, cre]
 Maintainer: Gideon Bradburd <bradburd@msu.edu>
 Repository: CRAN
-Date/Publication: 2018-11-08 15:40:14 UTC
+Date/Publication: 2019-01-03 17:00:06 UTC
