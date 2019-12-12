@@ -1,21 +1,21 @@
-## ---- echo = FALSE-------------------------------------------------------
+## ---- echo = FALSE------------------------------------------------------------
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 library(conStruct)
 data(data.block)
 
-## ----eval=FALSE----------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  help(make.all.the.plots)
 
-## ----eval=FALSE----------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  make.all.the.plots(conStruct.results = conStruct.results,
 #  					data.block = data.block,
 #  					prefix = "example",
 #  					layer.colors = NULL)
 #  # generates a bunch of pdf figures
 
-## ----echo=FALSE----------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 admix.props <- matrix(
 				c(0.086, 0.000, 0.500, 0.505, 0.099, 0.052, 0.024, 0.007, 0.800, 0.000, 0.216, 0.744, 0.917,
 				0.199, 0.469, 0.000, 0.783, 0.298, 0.329, 0.446, 0.000, 0.000, 0.637, 0.903, 0.000, 0.000,
@@ -27,7 +27,7 @@ admix.props <- matrix(
 				1.000, 0.185, 0.018, 1.000, 0.001, 0.000, 0.000, 0.000, 0.025, 0.000, 0.167, 0.016, 0.012,
 				0.000),nrow=35,ncol=3)
 
-## ----eval=FALSE----------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  load("my_conStruct.results.Robj")
 #  
 #  # assign the MAP admixture proportions from
@@ -36,7 +36,7 @@ admix.props <- matrix(
 #  
 #  admix.props <- conStruct.results$chain_1$MAP$admix.proportions
 
-## ---- fig.width=8,fig.height=4-------------------------------------------
+## ---- fig.width=8,fig.height=4------------------------------------------------
 # make a STRUCTURE plot using the 
 #	maximum a posteriori (MAP) estimates
 #	from the first chain of a conStruct run
@@ -44,7 +44,7 @@ admix.props <- matrix(
 make.structure.plot(admix.proportions = admix.props)
 
 
-## ---- fig.width=8,fig.height=4-------------------------------------------
+## ---- fig.width=8,fig.height=4------------------------------------------------
 
 # order by membership in layer 1
 make.structure.plot(admix.proportions = admix.props,
@@ -65,7 +65,7 @@ make.structure.plot(admix.proportions = admix.props,
 					sample.names = row.names(data.block$coords),
 					mar = c(4.5,4,2,2))
 
-## ----fig.width=6,fig.height=6--------------------------------------------
+## ----fig.width=6,fig.height=6-------------------------------------------------
 # make an admix pie plot using the 
 #	maximum a posteriori (MAP) estimates
 #	from the first chain of a conStruct run
@@ -83,7 +83,7 @@ make.structure.plot(admix.proportions = admix.props,
 						x.lim = c(-130,-120),
 						y.lim = c(49,56))
 
-## ----fig.width=6,fig.height=6--------------------------------------------
+## ----fig.width=6,fig.height=6-------------------------------------------------
 
 # add pie plot to an existing map
 
@@ -95,7 +95,7 @@ make.structure.plot(admix.proportions = admix.props,
 						coords = data.block$coords,
 						add = TRUE)
 
-## ---- eval=FALSE---------------------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------
 #  # load output files from a run with
 #  #	the spatial model and K=4
 #  load("spK4.conStruct.results.Robj")

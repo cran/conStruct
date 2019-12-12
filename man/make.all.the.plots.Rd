@@ -4,8 +4,7 @@
 \alias{make.all.the.plots}
 \title{Make output plots}
 \usage{
-make.all.the.plots(conStruct.results, data.block, prefix,
-  layer.colors = NULL)
+make.all.the.plots(conStruct.results, data.block, prefix, layer.colors = NULL)
 }
 \arguments{
 \item{conStruct.results}{The list output by a 
@@ -35,7 +34,7 @@ diagnosing MCMC performance.
 
 This function produces a variety of plots that can be 
 useful for visualizing results or diagnosing MCMC performance. 
- The plots made are by no means an exhaustive, and users are 
+ The plots made are by no means exhaustive, and users are 
 	encouraged to make further plots, or customize these plots as they 
 see fit.  For each plot, one file is generated for each MCMC chain 
 (specified with the \code{n.chains} argument in the function 

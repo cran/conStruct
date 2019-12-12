@@ -1,11 +1,11 @@
-## ---- echo = FALSE-------------------------------------------------------
+## ---- echo = FALSE------------------------------------------------------------
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 library(conStruct)
 data(conStruct.data)
 
-## ----eval=FALSE----------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  # load the example dataset
 #  data(conStruct.data)
 #  
@@ -24,7 +24,7 @@ data(conStruct.data)
 #  				  	coords = conStruct.data$coords,
 #  				  	prefix = "spK3")
 
-## ----eval=FALSE----------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  # load the example dataset
 #  data(conStruct.data)
 #  
@@ -46,7 +46,7 @@ data(conStruct.data)
 #  				    coords = conStruct.data$coords,
 #  				    prefix = "nspK2")
 
-## ----eval=FALSE----------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  my.run <- conStruct(spatial = TRUE,
 #  					K = 3,
 #  					freqs = conStruct.data$allele.frequencies,
@@ -58,7 +58,7 @@ data(conStruct.data)
 #  					make.figs = TRUE,
 #  					save.files = TRUE)
 
-## ----echo=FALSE,fig.width=7,fig.height=2.7-------------------------------
+## ----echo=FALSE,fig.width=7,fig.height=2.7------------------------------------
 par(mfrow=c(1,3),mar=c(4,3,1.5,1))
 	plot(c(0,rnorm(500,1,0.2)),type='l',
 		xlab="",yaxt='n',ylab="")
@@ -72,7 +72,7 @@ par(mfrow=c(1,3),mar=c(4,3,1.5,1))
 		xlab="",yaxt='n',ylab="")
 		mtext(side=3,text="(c) multi-modal",padj=-0.1)
 
-## ----echo=FALSE,fig.width=7,fig.height=3---------------------------------
+## ----echo=FALSE,fig.width=7,fig.height=3--------------------------------------
 w <- matrix(rnorm(40,sample(2:10,40,replace=TRUE),1),
 			nrow=20,ncol=2)
 w <- w/rowSums(w)

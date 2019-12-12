@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <meta name="author" content="Gideon Bradburd" />
 
-<meta name="date" content="2019-01-03" />
+<meta name="date" content="2019-12-12" />
 
 <title>How to format data for a conStruct analysis</title>
 
@@ -96,7 +96,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -291,6 +291,9 @@ code > span.al { color: #ff0000; font-weight: bold; }
 code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
+
+
+
 </head>
 
 <body>
@@ -299,8 +302,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 
 <h1 class="title toc-ignore">How to format data for a conStruct analysis</h1>
-<h4 class="author"><em>Gideon Bradburd</em></h4>
-<h4 class="date"><em>January 03, 2019</em></h4>
+<h4 class="author">Gideon Bradburd</h4>
+<h4 class="date">December 12, 2019</h4>
 
 
 <div id="TOC">
@@ -572,12 +575,13 @@ genotype data for four loci. The numbers in the genotype data refer to
 the allele present at that locus: A1 = `1`, A2 = `2`, missing = `-9`.</code></pre>
 <p>To convert a STRUCTURE format file to <code>conStruct</code> format, you can use the function <code>structure2conStruct</code>, included in the <code>conStruct</code> package.</p>
 <p>Below, I give an example of the usage of this function, assuming that the file containing the STRUCTURE format data is called “myStructureData.str”, and that it’s on the “desktop” directory on the computer. I also assume that the data are formatted as in the table above, with the genotype data starting at the 3rd column of the data matrix, and missing data denoted with a value of -9.</p>
-<p><strong>Note that the STRUCTURE-format data must be a text file and there can be no lines of text before the data table begins. If your file is in an Excel spreadsheet, it can be converted to a text file using Save As &gt; File Format = Tab delimited Text (.txt). If there are lines of text at the top of the document before the data matrix begins, they must be deleted. In addition, your data can only contain bi-allelic data. If you have loci with more than two alleles, they should be not be included in the dataset. For more information on multi-allelic datasets, see the section on <a href="#microsatellites">Microsatellites</a> below.</strong></p>
+<p><strong>Note that the STRUCTURE-format data must be a text file and there can be no lines of text before the data table begins. If your file is in an Excel spreadsheet, it can be converted to a text file using Save As &gt; File Format = Tab delimited Text (.txt). If there are lines of text at the top of the document before the data matrix begins, they must be deleted or specified via the <code>start.samples</code> argument. In addition, your data can only contain bi-allelic data. If you have loci with more than two alleles, they should be not be included in the dataset. For more information on multi-allelic datasets, see the section on <a href="#microsatellites">Microsatellites</a> below.</strong></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">conStruct.data &lt;-<span class="st"> </span><span class="kw">structure2conStruct</span>(<span class="dt">infile =</span> <span class="st">&quot;~/Desktop/myStructureData.str&quot;</span>,</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">                                      <span class="dt">onerowperind =</span> <span class="ot">TRUE</span>,</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3">                                      <span class="dt">start.loci =</span> <span class="dv">3</span>,</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4">                                      <span class="dt">missing.datum =</span> <span class="dv">-9</span>,</a>
-<a class="sourceLine" id="cb6-5" data-line-number="5">                                      <span class="dt">outfile =</span> <span class="st">&quot;~/Desktop/myConStructData&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb6-4" data-line-number="4">                                      <span class="dt">start.samples =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">                                      <span class="dt">missing.datum =</span> <span class="dv">-9</span>,</a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">                                      <span class="dt">outfile =</span> <span class="st">&quot;~/Desktop/myConStructData&quot;</span>)</a></code></pre></div>
 <p>An alternate STRUCTURE data format has two rows and one column per diploid genotype:</p>
 <table>
 <thead>
@@ -702,8 +706,9 @@ the allele present at that locus: A1 = `1`, A2 = `2`, missing = `0`.</code></pre
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">conStruct.data &lt;-<span class="st"> </span><span class="kw">structure2conStruct</span>(<span class="dt">infile =</span> <span class="st">&quot;~/Desktop/myStructureData.str&quot;</span>,</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2">                                      <span class="dt">onerowperind =</span> <span class="ot">FALSE</span>,</a>
 <a class="sourceLine" id="cb8-3" data-line-number="3">                                      <span class="dt">start.loci =</span> <span class="dv">3</span>,</a>
-<a class="sourceLine" id="cb8-4" data-line-number="4">                                      <span class="dt">missing.datum =</span> <span class="dv">0</span>,</a>
-<a class="sourceLine" id="cb8-5" data-line-number="5">                                      <span class="dt">outfile =</span> <span class="st">&quot;~/Desktop/myConStructData&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb8-4" data-line-number="4">                                      <span class="dt">start.samples =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb8-5" data-line-number="5">                                      <span class="dt">missing.datum =</span> <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb8-6" data-line-number="6">                                      <span class="dt">outfile =</span> <span class="st">&quot;~/Desktop/myConStructData&quot;</span>)</a></code></pre></div>
 <p>Further documentation for this function is in its help page, which you can go to using the command <code>help(structure2conStruct)</code>.</p>
 <p>If you wish to group multiple individuals together into a single sample for analysis you can collapse rows of the <code>conStruct</code> format data file. For example, if you have 12 individuals from 4 locations (3 individuals from each location), and you wish to analyze the data treating populations at a sampling location as the unit of analysis, you can do something like the following:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">pop.data.matrix &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="ot">NA</span>,<span class="dt">nrow=</span><span class="dv">4</span>,<span class="dt">ncol=</span><span class="kw">ncol</span>(conStruct.data))</a>
@@ -728,6 +733,9 @@ the allele present at that locus: A1 = `1`, A2 = `2`, missing = `0`.</code></pre
 </div>
 </div>
 
+
+
+<!-- code folding -->
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

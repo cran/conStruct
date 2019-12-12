@@ -290,7 +290,7 @@ check.data.partitions.covmats <- function(args){
 	data.list2 <- lapply(args[["data.partitions"]],function(x){x[[2]]$data})
 	if(!all(unlist(lapply(data.list1,function(x){isSymmetric(x)}))) |
 	   !all(unlist(lapply(data.list2,function(x){isSymmetric(x)})))){
-		stop("\nyou must specify symmetric matrices for the \"data\" elemtns of the data partitions list\n\n")
+		stop("\nyou must specify symmetric matrices for the \"data\" elements of the data partitions list\n\n")
 	}	
 	if(any(unlist(lapply(data.list1,function(x){any(is.na(x))}))) |
 	   any(unlist(lapply(data.list2,function(x){any(is.na(x))})))){
@@ -298,7 +298,7 @@ check.data.partitions.covmats <- function(args){
 	}
 	if(any(unlist(lapply(data.list1,function(x){any(eigen(x)$values <= 0)}))) |
 	   any(unlist(lapply(data.list2,function(x){any(eigen(x)$values <= 0)})))){
-		stop("\nyou have specified an invalid data partition \"data\" element is not positive definite\n\n")
+		stop("\nyou have specified an invalid data partition \"data\" element that is not positive definite\n\n")
 	}
 	return(invisible("data partitions cov matrices checked"))
 }
@@ -318,6 +318,9 @@ check.data.partitions.arg <- function(args){
 	vmf.list <- unlist(lapply(args[["data.partitions"]],function(x){c(x[[1]]$varMeanFreqs,x[[2]]$varMeanFreqs)}))
 	if(any(is.na(L.list)) | any(L.list < 0) | any(!is.numeric(L.list))){
 		stop("\nall values of \"n.loci\" must contain a numeric value greater than zero\n\n")			
+	}
+	if(any(L.list < nrow(args[["geoDist"]]))){
+		stop("\nthere must be more loci in each partition than there are samples\n\n")
 	}
 	if(any(is.na(vmf.list)) | any(vmf.list < 0) | any(!is.numeric(vmf.list))){
 		stop("\nall values of \"varMeanFreqs\" must contain a numeric value greater than zero\n\n")			
@@ -349,11 +352,13 @@ check.for.files <- function(args){
 }
 
 check.parallel.args <- function(args){
-	if(args[["parallel"]] & args[["n.nodes"]]==1){
-		stop("\nyou have specified the \"parallel\" option with \"n.nodes\" set to 1.\n\n")
-	}
-	if(!args[["parallel"]] & args[["n.nodes"]] > 1){
-		stop("\nyou have are running with \"parallel\" set to FALSE but with \"n.nodes\" greater than 1.\n\n")
+	if(!is.null(args[["n.nodes"]])){
+		if(args[["parallel"]] & args[["n.nodes"]]==1){
+			stop("\nyou have specified the \"parallel\" option with \"n.nodes\" set to 1.\n\n")
+		}
+		if(!args[["parallel"]] & args[["n.nodes"]] > 1){
+			stop("\nyou have are running with \"parallel\" set to FALSE but with \"n.nodes\" greater than 1.\n\n")
+		}
 	}
 	if(!args[["parallel"]] & foreach::getDoParWorkers() > 1){
 		stop("\nyou are running with more than 1 worker but you have set the \"parallel\" option to FALSE\n\n")
