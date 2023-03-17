@@ -251,7 +251,7 @@ make.data.partitions <- function(n.reps,freqs,train.prop){
 
 get.var.mean.freqs <- function(freqs){
 	varMeanFreqs <- mean(0.5 * colMeans(freqs - 0.5, na.rm = TRUE)^2 + 
-	            		 0.5 * colMeans(0.5 - freqs, na.rm = TRUE)^2)
+	            		 0.5 * colMeans(0.5 - freqs, na.rm = TRUE)^2, na.rm=TRUE)
 	return(varMeanFreqs)
 }
 
@@ -383,11 +383,11 @@ xval.conStruct <- function (spatial = TRUE, K, data, geoDist = NULL, coords, pre
     }
 	stan.model <- pick.stan.model(spatial,K)
     model.fit <- rstan::sampling(object = stanmodels[[stan.model]], 
-    							 refresh = min(n.iter/10,500), 
+    							 refresh = min(floor(n.iter/10),500), 
     							 data = data.block, 
     							 iter = n.iter, 
     							 chains = n.chains, 
-        						 thin = ifelse(n.iter/500 > 1, n.iter/500, 1), 
+        						 thin = ifelse(n.iter/500 > 1,floor(n.iter/500),1),
         						 save_warmup = FALSE,
                                  ...)
     conStruct.results <- get.conStruct.results(data.block,model.fit,n.chains)
@@ -553,9 +553,12 @@ parallelizing <- function(args){
 }
 
 calculate.qij <- function(layer.params,data.block,i,j){
+	D <- data.block$geoDist[i,j]
+	if(is.null(D)){
+		D <- 0
+	}
 	q_ij <- 2 * layer.params$alpha0 * 
-				exp(-(layer.params$alphaD * 
-						data.block$geoDist[i,j])^layer.params$alpha2) + 
+				exp(-(layer.params$alphaD * D)^layer.params$alpha2) + 
 						2 * layer.params$phi + 0.5
 	return(q_ij)
 }

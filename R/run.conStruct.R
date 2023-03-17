@@ -135,11 +135,11 @@ conStruct <- function(spatial=TRUE,K,freqs,geoDist=NULL,coords,prefix="",n.chain
 	}
 	stan.model <- pick.stan.model(spatial,K)
 	model.fit <- rstan::sampling(object = stanmodels[[stan.model]],
-							 	 refresh = min(n.iter/10,500),
+							 	 refresh = min(floor(n.iter/10),500),
 							 	 data = data.block,
 							 	 iter = n.iter,
 							 	 chains = n.chains,
-							 	 thin = ifelse(n.iter/500 > 1,n.iter/500,1),
+							 	 thin = ifelse(n.iter/500 > 1,floor(n.iter/500),1),
 							 	 save_warmup = FALSE,
 							 	 ...)
 	conStruct.results <- get.conStruct.results(data.block,model.fit,n.chains)
@@ -291,7 +291,7 @@ drop.missing <- function(freqs){
 
 calc.covariance <- function(freqs){
 	x <- t(freqs)
-	allelic.covariance <- stats::cov(x,use="pairwise.complete.obs") - 
+	allelic.covariance <- (1 - 1/nrow(freqs)) * stats::cov(x,use="pairwise.complete.obs") - 
 									(1/2) * outer( colMeans(x,na.rm=TRUE), 1-colMeans(x,na.rm=TRUE), "*" ) -
 									(1/2) * outer(1-colMeans(x,na.rm=TRUE), colMeans(x,na.rm=TRUE), "*") + 1/4
 	diag(allelic.covariance) <- 0.25
@@ -370,7 +370,7 @@ check.K.arg <- function(args){
 	if(length(args[["K"]]) > 1){
 		stop("\nyou have specified more than one value for the \"K\" argument\n")
 	} 
-	if(!inherits(args[["K"]],"numeric")){
+	if(!inherits(args[["K"]],"numeric") & !inherits(args[["K"]],"integer")){
 		stop("\nyou have specified a non-numeric value for the \"K\" argument\n")
 	}
 	if(args[["K"]] %% 1 != 0){
