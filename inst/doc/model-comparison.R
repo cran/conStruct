@@ -1,4 +1,4 @@
-## ---- echo = FALSE------------------------------------------------------------
+## ----echo = FALSE-------------------------------------------------------------
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 
 ## ----eval=FALSE---------------------------------------------------------------
@@ -29,7 +29,7 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 #  				  		 parallel = FALSE,
 #  				  		 n.nodes = NULL)
 
-## ---- eval=FALSE--------------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  # read in results from text files
 #  
 #  sp.results <- as.matrix(
@@ -56,7 +56,7 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ## ----eval=TRUE,echo=FALSE-----------------------------------------------------
 knitr::kable(sp.results,row.names=TRUE,col.names=paste0("rep",1:8),caption="Spatial cross-validation results")
 
-## ---- eval=TRUE, fig.width=8,fig.height=5-------------------------------------
+## ----eval=TRUE, fig.width=8,fig.height=5--------------------------------------
 
 # first, get the 95% confidence intervals for the spatial and nonspatial
 #	models over values of K (mean +/- 1.96 the standard error)
@@ -184,14 +184,14 @@ segments(x0 = 1:nrow(sp.results),
 #  	tmp <- conStruct.results[[1]]$MAP$admix.proportions[,tmp.order]
 #  }
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 	layer.contributions <- matrix(c(1.000, 0.000, 0.000, 0.000, 0.000, 0.680, 0.320, 0.000, 0.000, 0.000, 0.682, 0.318, 0.000, 0.000, 0.000, 0.678, 0.322, 0.000, 0.000, 0.000, 0.684, 0.315, 0.000, 0.000, 0.000),nrow=5,ncol=5)
 	row.names(layer.contributions) <- paste0("Layer_",1:5)
 
-## ---- eval=TRUE,echo=FALSE----------------------------------------------------
+## ----eval=TRUE,echo=FALSE-----------------------------------------------------
 knitr::kable(layer.contributions,row.names=TRUE,col.names=paste0("K=",1:5),caption="Contributions for each layer for runs done with K=1 through 5")
 
-## ---- eval=TRUE,fig.width=5,fig.height=5--------------------------------------
+## ----eval=TRUE,fig.width=5,fig.height=5---------------------------------------
 barplot(layer.contributions,
 		col=c("blue", "red", "goldenrod1", "forestgreen", "darkorchid1"),
 		xlab="",

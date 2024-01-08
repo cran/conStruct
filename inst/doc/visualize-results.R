@@ -1,4 +1,4 @@
-## ---- echo = FALSE------------------------------------------------------------
+## ----echo = FALSE-------------------------------------------------------------
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 
 ## -----------------------------------------------------------------------------
@@ -36,7 +36,7 @@ admix.props <- matrix(
 #  
 #  admix.props <- conStruct.results$chain_1$MAP$admix.proportions
 
-## ---- fig.width=8,fig.height=4------------------------------------------------
+## ----fig.width=8,fig.height=4-------------------------------------------------
 # make a STRUCTURE plot using the 
 #	maximum a posteriori (MAP) estimates
 #	from the first chain of a conStruct run
@@ -44,7 +44,7 @@ admix.props <- matrix(
 make.structure.plot(admix.proportions = admix.props)
 
 
-## ---- fig.width=8,fig.height=4------------------------------------------------
+## ----fig.width=8,fig.height=4-------------------------------------------------
 
 # order by membership in layer 1
 make.structure.plot(admix.proportions = admix.props,
@@ -95,7 +95,7 @@ make.structure.plot(admix.proportions = admix.props,
 						coords = data.block$coords,
 						add = TRUE)
 
-## ---- eval=FALSE--------------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  # load output files from a run with
 #  #	the spatial model and K=4
 #  load("spK4.conStruct.results.Robj")
